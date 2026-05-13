@@ -1,11 +1,83 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr-CI">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Babi Vibes — Présentation Commerciale</title>
+<title>Babi Vibes | Application événementielle BtoBtoC</title>
+<meta name="description" content="Babi Vibes aide les marques à transformer événements, activations terrain et points de vente en contacts WhatsApp, réservations et données first-party.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="author" content="BigFive Solutions">
+<meta name="application-name" content="Babi Vibes">
+<meta name="theme-color" content="#0A0A0F">
+<meta name="geo.region" content="CI">
+<meta name="geo.placename" content="Abidjan">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fr_CI">
+<meta property="og:site_name" content="Babi Vibes">
+<meta property="og:title" content="Babi Vibes | Application événementielle BtoBtoC">
+<meta property="og:description" content="Une application événementielle propriétaire pour collecter des contacts WhatsApp, mesurer les activations terrain et créer une base consommateurs first-party.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Babi Vibes | Application événementielle BtoBtoC">
+<meta name="twitter:description" content="Transformez vos événements, activations terrain et points de vente en contacts qualifiés, réservations et données propriétaires.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230A0A0F'/%3E%3Ctext x='32' y='40' text-anchor='middle' font-family='Arial,sans-serif' font-size='24' font-weight='800' fill='%23FFD700'%3EBV%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,900&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "#organization",
+      "name": "BigFive Solutions",
+      "email": "babivibes@bigfiveabidjan.com",
+      "areaServed": {
+        "@type": "Country",
+        "name": "Côte d'Ivoire"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "#software",
+      "name": "Babi Vibes",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web, iOS, Android",
+      "inLanguage": "fr-CI",
+      "description": "Application événementielle BtoBtoC pour créer, modérer et mesurer des événements, collecter des contacts WhatsApp et développer une base de données first-party.",
+      "creator": {
+        "@id": "#organization"
+      },
+      "audience": [
+        {
+          "@type": "BusinessAudience",
+          "name": "Directions générales"
+        },
+        {
+          "@type": "BusinessAudience",
+          "name": "Équipes marketing"
+        },
+        {
+          "@type": "BusinessAudience",
+          "name": "Services informatiques"
+        }
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "#website",
+      "name": "Babi Vibes",
+      "inLanguage": "fr-CI",
+      "publisher": {
+        "@id": "#organization"
+      },
+      "about": {
+        "@id": "#software"
+      }
+    }
+  ]
+}
+</script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -16,16 +88,18 @@
 }
 html{scroll-behavior:smooth}
 body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--white);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.skip-link{position:absolute;left:16px;top:12px;z-index:3000;transform:translateY(-140%);background:var(--gold);color:var(--dark);font-size:13px;font-weight:800;padding:10px 14px;border-radius:8px;text-decoration:none;transition:transform .2s}
+.skip-link:focus{transform:translateY(0)}
 
 /* ── NAV ── */
 nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,10,15,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06);padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between}
-.nav-logo{font-size:17px;font-weight:900;color:var(--white);letter-spacing:-.3px}
+.nav-logo{font-size:17px;font-weight:900;color:var(--white);letter-spacing:-.3px;text-decoration:none}
 .nav-logo span{color:var(--gold)}
 .nav-tabs{display:flex;gap:4px}
-.nav-tab{padding:7px 14px;border-radius:8px;font-size:13px;font-weight:600;color:var(--gray);cursor:pointer;border:none;background:none;transition:all .2s;font-family:inherit}
+.nav-tab{padding:7px 14px;border-radius:8px;font-size:13px;font-weight:600;color:var(--gray);cursor:pointer;border:none;background:none;transition:all .2s;font-family:inherit;text-decoration:none}
 .nav-tab:hover{color:var(--white);background:rgba(255,255,255,.06)}
 .nav-tab.active{color:var(--dark);background:var(--gold)}
-.nav-cta{padding:8px 18px;border-radius:8px;background:var(--gold);color:var(--dark);font-size:13px;font-weight:800;border:none;cursor:pointer;font-family:inherit;transition:opacity .2s}
+.nav-cta{padding:8px 18px;border-radius:8px;background:var(--gold);color:var(--dark);font-size:13px;font-weight:800;border:none;cursor:pointer;font-family:inherit;transition:opacity .2s;text-decoration:none}
 .nav-cta:hover{opacity:.88}
 
 /* ── HERO ── */
@@ -37,9 +111,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,10,15,.9
 .hero-title span{color:var(--gold)}
 .hero-sub{font-size:clamp(15px,2vw,19px);color:var(--gray);line-height:1.65;max-width:620px;margin:0 auto 36px}
 .hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.btn-primary{padding:14px 28px;border-radius:12px;background:var(--gold);color:var(--dark);font-size:15px;font-weight:800;border:none;cursor:pointer;font-family:inherit;transition:transform .15s,opacity .15s;display:flex;align-items:center;gap:8px}
+.btn-primary{padding:14px 28px;border-radius:12px;background:var(--gold);color:var(--dark);font-size:15px;font-weight:800;border:none;cursor:pointer;font-family:inherit;transition:transform .15s,opacity .15s;display:flex;align-items:center;gap:8px;text-decoration:none}
 .btn-primary:hover{transform:translateY(-1px);opacity:.92}
-.btn-outline{padding:14px 28px;border-radius:12px;background:transparent;color:var(--white);font-size:15px;font-weight:700;border:1.5px solid rgba(255,255,255,.18);cursor:pointer;font-family:inherit;transition:all .2s;display:flex;align-items:center;gap:8px}
+.btn-outline{padding:14px 28px;border-radius:12px;background:transparent;color:var(--white);font-size:15px;font-weight:700;border:1.5px solid rgba(255,255,255,.18);cursor:pointer;font-family:inherit;transition:all .2s;display:flex;align-items:center;gap:8px;text-decoration:none}
 .btn-outline:hover{border-color:rgba(255,255,255,.4);background:rgba(255,255,255,.04)}
 .hero-stats{display:flex;gap:40px;justify-content:center;margin-top:48px;flex-wrap:wrap}
 .hero-stat .val{font-size:36px;font-weight:900;color:var(--gold)}
@@ -100,7 +174,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,10,15,.9
 .pk{flex:1;min-width:80px;text-align:center}
 .pk-val{font-size:24px;font-weight:900}
 .pk-lbl{font-size:11px;color:var(--gray);margin-top:2px}
-.demo-open-btn{margin-top:20px;padding:13px 24px;border-radius:12px;background:var(--gold);color:var(--dark);font-size:14px;font-weight:800;border:none;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:8px;transition:transform .15s,opacity .15s}
+.demo-open-btn{margin-top:20px;padding:13px 24px;border-radius:12px;background:var(--gold);color:var(--dark);font-size:14px;font-weight:800;border:none;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:8px;transition:transform .15s,opacity .15s;text-decoration:none}
 .demo-open-btn:hover{transform:translateY(-1px);opacity:.9}
 
 /* ── DIVIDER ── */
@@ -150,7 +224,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,10,15,.9
 .cta-title span{color:var(--gold)}
 .cta-sub{font-size:17px;color:var(--gray);line-height:1.65;margin-bottom:36px}
 .cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.btn-gold-lg{padding:16px 32px;border-radius:14px;background:var(--gold);color:var(--dark);font-size:16px;font-weight:900;border:none;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:8px;transition:transform .15s}
+.btn-gold-lg{padding:16px 32px;border-radius:14px;background:var(--gold);color:var(--dark);font-size:16px;font-weight:900;border:none;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:8px;transition:transform .15s;text-decoration:none}
 .btn-gold-lg:hover{transform:translateY(-2px)}
 .cta-note{margin-top:20px;font-size:13px;color:var(--gray2)}
 
@@ -160,7 +234,7 @@ footer{background:var(--surface);border-top:1px solid rgba(255,255,255,.07);padd
 .footer-logo span{color:var(--gold)}
 .footer-sub{font-size:13px;color:var(--gray)}
 .footer-links{display:flex;gap:20px;justify-content:center;margin-top:16px}
-.footer-link{font-size:12px;color:var(--gray2);cursor:pointer;transition:color .2s}
+.footer-link{font-size:12px;color:var(--gray2);cursor:pointer;transition:color .2s;text-decoration:none}
 .footer-link:hover{color:var(--gold)}
 
 /* ── DEMO MODAL ── */
@@ -225,28 +299,31 @@ footer{background:var(--surface);border-top:1px solid rgba(255,255,255,.07);padd
 </style>
 </head>
 <body>
+<a class="skip-link" href="#main-content">Aller au contenu principal</a>
 
 <!-- ══ NAV ══ -->
-<nav>
-  <div class="nav-logo">BABI <span>VIBES</span><span style="font-size:9px;font-weight:500;color:var(--gray);letter-spacing:.04em;margin-left:8px;display:inline-block;line-height:1">by BigFive</span></div>
+<nav aria-label="Navigation principale">
+  <a class="nav-logo" href="#hero" onclick="event.preventDefault();scrollToSection('#hero')" aria-label="Babi Vibes, retour en haut de page">BABI <span>VIBES</span><span style="font-size:9px;font-weight:500;color:var(--gray);letter-spacing:.04em;margin-left:8px;display:inline-block;line-height:1">by BigFive</span></a>
   <div class="nav-tabs">
-    <button class="nav-tab active" onclick="scrollToSection('#demo-consumer')">Consommateur</button>
-    <button class="nav-tab" onclick="scrollToSection('#demo-pro')">Organisateur</button>
-    <button class="nav-tab" onclick="scrollToSection('#demo-admin')">Administrateur</button>
+    <a class="nav-tab active" href="#demo-consumer" onclick="event.preventDefault();scrollToSection('#demo-consumer')">Consommateur</a>
+    <a class="nav-tab" href="#demo-pro" onclick="event.preventDefault();scrollToSection('#demo-pro')">Organisateur</a>
+    <a class="nav-tab" href="#demo-admin" onclick="event.preventDefault();scrollToSection('#demo-admin')">Administrateur</a>
   </div>
-  <button class="nav-cta" onclick="window.open('https://calendly.com/jeremie-bfsbusinesscamp/demande-de-rendez-vous','_blank')">📅 Prendre rendez-vous</button>
+  <a class="nav-cta" href="https://calendly.com/jeremie-bfsbusinesscamp/demande-de-rendez-vous" target="_blank" rel="noopener noreferrer">📅 Prendre rendez-vous</a>
 </nav>
+
+<main id="main-content">
 
 <!-- ══ HERO ══ -->
 <section class="hero" id="hero">
   <div class="hero-bg"></div>
   <div class="hero-inner fade-in">
     <div class="hero-badge">✨ Application événementielle BtoBtoC</div>
-    <h1 class="hero-title">Votre marque.<br><span>Votre communauté.</span><br>Vos données.</h1>
+    <h1 class="hero-title">Babi Vibes pour votre marque.<br><span>Votre communauté.</span><br>Vos données.</h1>
     <p class="hero-sub">Une application événementielle propriétaire qui transforme chaque soirée, chaque activation terrain, chaque point de vente en contact direct et mesurable avec vos consommateurs — sans passer par Meta.</p>
     <div class="hero-btns">
-      <button class="btn-primary" onclick="openModal('babi-vibes-pilote.html','Démo Consommateur')">▶ Voir la démo consommateur</button>
-      <button class="btn-outline" onclick="scrollToSection('#demo-consumer')">Explorer la présentation ↓</button>
+      <a class="btn-primary" href="babi-vibes-pilote.html" onclick="event.preventDefault();openModal('babi-vibes-pilote.html','Démo Consommateur')">▶ Voir la démo consommateur</a>
+      <a class="btn-outline" href="#demo-consumer" onclick="event.preventDefault();scrollToSection('#demo-consumer')">Explorer la présentation ↓</a>
     </div>
     <div class="hero-stats">
       <div class="hero-stat"><div class="val">×8</div><div class="lbl">moins cher qu'une campagne radio</div></div>
@@ -271,12 +348,12 @@ footer{background:var(--surface);border-top:1px solid rgba(255,255,255,.07);padd
             <div class="phone-home-bar"></div>
             <div class="phone-screen">
               <!-- Launch overlay -->
-              <div class="demo-launch" id="launch-consumer" onclick="loadDemo('consumer')">
+              <div class="demo-launch" id="launch-consumer" onclick="loadDemo('consumer')" role="button" tabindex="0" aria-label="Lancer la démo consommateur">
                 <div class="launch-icon">🎉</div>
                 <div class="launch-title">Démo Consommateur<br><span style="font-size:11px;color:var(--gray);font-weight:400">Feed événementiel · J'y vais · WhatsApp</span></div>
-                <button class="launch-btn">▶ Lancer la démo</button>
+                <span class="launch-btn" aria-hidden="true">▶ Lancer la démo</span>
               </div>
-              <iframe id="iframe-consumer" class="phone-iframe" src="" title="Démo Consommateur"></iframe>
+              <iframe id="iframe-consumer" class="phone-iframe" src="" title="Démo Consommateur" loading="lazy"></iframe>
             </div>
           </div>
         </div>
@@ -315,7 +392,7 @@ footer{background:var(--surface);border-top:1px solid rgba(255,255,255,.07);padd
           <div class="pk"><div class="pk-val" style="color:var(--teal)">WA</div><div class="pk-lbl">contact direct</div></div>
           <div class="pk"><div class="pk-val" style="color:var(--coral)">100%</div><div class="pk-lbl">propriétaire</div></div>
         </div>
-        <button class="demo-open-btn" onclick="openModal('babi-vibes-pilote.html','Démo Consommateur — Babi Vibes')">▶ Ouvrir en plein écran</button>
+        <a class="demo-open-btn" href="babi-vibes-pilote.html" onclick="event.preventDefault();openModal('babi-vibes-pilote.html','Démo Consommateur — Babi Vibes')">▶ Ouvrir en plein écran</a>
       </div>
     </div>
   </div>
@@ -336,12 +413,12 @@ footer{background:var(--surface);border-top:1px solid rgba(255,255,255,.07);padd
             <div class="phone-island"></div>
             <div class="phone-home-bar"></div>
             <div class="phone-screen">
-              <div class="demo-launch" id="launch-pro" onclick="loadDemo('pro')">
+              <div class="demo-launch" id="launch-pro" onclick="loadDemo('pro')" role="button" tabindex="0" aria-label="Lancer la démo organisateur">
                 <div class="launch-icon">🏪</div>
                 <div class="launch-title">Démo Organisateur<br><span style="font-size:11px;color:var(--gray);font-weight:400">Créer · Gérer · Mesurer</span></div>
-                <button class="launch-btn">▶ Lancer la démo</button>
+                <span class="launch-btn" aria-hidden="true">▶ Lancer la démo</span>
               </div>
-              <iframe id="iframe-pro" class="phone-iframe" src="" title="Démo Pro"></iframe>
+              <iframe id="iframe-pro" class="phone-iframe" src="" title="Démo Pro" loading="lazy"></iframe>
             </div>
           </div>
         </div>
@@ -380,7 +457,7 @@ footer{background:var(--surface);border-top:1px solid rgba(255,255,255,.07);padd
           <div class="pk"><div class="pk-val" style="color:var(--gold)">24h</div><div class="pk-lbl">modération</div></div>
           <div class="pk"><div class="pk-val" style="color:var(--green)">5</div><div class="pk-lbl">pubs gratuites</div></div>
         </div>
-        <button class="demo-open-btn" onclick="openModal('babi-vibes-pro.html','Démo Organisateur Pro — Babi Vibes')" style="background:var(--teal)">▶ Ouvrir en plein écran</button>
+        <a class="demo-open-btn" href="babi-vibes-pro.html" onclick="event.preventDefault();openModal('babi-vibes-pro.html','Démo Organisateur Pro — Babi Vibes')" style="background:var(--teal)">▶ Ouvrir en plein écran</a>
       </div>
     </div>
   </div>
@@ -401,12 +478,12 @@ footer{background:var(--surface);border-top:1px solid rgba(255,255,255,.07);padd
             <div class="phone-island"></div>
             <div class="phone-home-bar"></div>
             <div class="phone-screen">
-              <div class="demo-launch" id="launch-admin" onclick="loadDemo('admin')">
+              <div class="demo-launch" id="launch-admin" onclick="loadDemo('admin')" role="button" tabindex="0" aria-label="Lancer la démo administrateur">
                 <div class="launch-icon">⚙️</div>
                 <div class="launch-title">Démo Administrateur<br><span style="font-size:11px;color:var(--gray);font-weight:400">Modération · Création · Publicités</span></div>
-                <button class="launch-btn">▶ Lancer la démo</button>
+                <span class="launch-btn" aria-hidden="true">▶ Lancer la démo</span>
               </div>
-              <iframe id="iframe-admin" class="phone-iframe" src="" title="Démo Admin"></iframe>
+              <iframe id="iframe-admin" class="phone-iframe" src="" title="Démo Admin" loading="lazy"></iframe>
             </div>
           </div>
         </div>
@@ -444,7 +521,7 @@ footer{background:var(--surface);border-top:1px solid rgba(255,255,255,.07);padd
           <div class="pk"><div class="pk-val" style="color:var(--gold)">4</div><div class="pk-lbl">filtres modération</div></div>
           <div class="pk"><div class="pk-val" style="color:var(--green)">Live</div><div class="pk-lbl">stats pubs</div></div>
         </div>
-        <button class="demo-open-btn" onclick="openModal('babi-vibes-admin.html','Démo Admin — Babi Vibes')" style="background:var(--coral)">▶ Ouvrir en plein écran</button>
+        <a class="demo-open-btn" href="babi-vibes-admin.html" onclick="event.preventDefault();openModal('babi-vibes-admin.html','Démo Admin — Babi Vibes')" style="background:var(--coral)">▶ Ouvrir en plein écran</a>
       </div>
     </div>
   </div>
@@ -590,8 +667,8 @@ footer{background:var(--surface);border-top:1px solid rgba(255,255,255,.07);padd
     <h2 class="cta-title">Prêt à transformer chaque événement en <span>actif stratégique</span> ?</h2>
     <p class="cta-sub">Testez Babi Vibes sur un événement existant de votre calendrier. Budget limité, risque limité, résultats mesurables en 30 jours.</p>
     <div class="cta-btns">
-      <button class="btn-gold-lg" onclick="window.open('https://calendly.com/jeremie-bfsbusinesscamp/demande-de-rendez-vous','_blank')">📅 Prendre rendez-vous</button>
-      <button class="btn-outline" onclick="openModal('babi-vibes-pilote.html','Démo Consommateur — Babi Vibes')" style="padding:16px 28px;font-size:15px">▶ Revoir la démo</button>
+      <a class="btn-gold-lg" href="https://calendly.com/jeremie-bfsbusinesscamp/demande-de-rendez-vous" target="_blank" rel="noopener noreferrer">📅 Prendre rendez-vous</a>
+      <a class="btn-outline" href="babi-vibes-pilote.html" onclick="event.preventDefault();openModal('babi-vibes-pilote.html','Démo Consommateur — Babi Vibes')" style="padding:16px 28px;font-size:15px">▶ Revoir la démo</a>
     </div>
     <div class="cta-note">Aucun engagement long terme · Pilote sur 1 événement · Rapport J+7</div>
     <div style="margin-top:14px;font-size:14px;color:var(--gray)">✉️ <a href="mailto:babivibes@bigfiveabidjan.com" style="color:var(--gold);text-decoration:none">babivibes@bigfiveabidjan.com</a></div>
@@ -599,33 +676,35 @@ footer{background:var(--surface);border-top:1px solid rgba(255,255,255,.07);padd
 </section>
 
 <!-- ══ FOOTER ══ -->
+</main>
+
 <footer>
   <div class="footer-logo">BABI <span>VIBES</span></div>
   <div class="footer-sub">Application événementielle BtoBtoC · Confidentiel 2025</div>
   <div class="footer-links">
-    <span class="footer-link" onclick="scrollToSection('#demo-consumer')">Démo Consommateur</span>
-    <span class="footer-link" onclick="scrollToSection('#demo-pro')">Démo Organisateur</span>
-    <span class="footer-link" onclick="scrollToSection('#demo-admin')">Démo Admin</span>
+    <a class="footer-link" href="#demo-consumer" onclick="event.preventDefault();scrollToSection('#demo-consumer')">Démo Consommateur</a>
+    <a class="footer-link" href="#demo-pro" onclick="event.preventDefault();scrollToSection('#demo-pro')">Démo Organisateur</a>
+    <a class="footer-link" href="#demo-admin" onclick="event.preventDefault();scrollToSection('#demo-admin')">Démo Admin</a>
     <a class="footer-link" href="mailto:babivibes@bigfiveabidjan.com" style="color:inherit;text-decoration:none">babivibes@bigfiveabidjan.com</a>
-    <a class="footer-link" href="https://calendly.com/jeremie-bfsbusinesscamp/demande-de-rendez-vous" target="_blank" style="color:inherit;text-decoration:none">📅 Prendre RDV</a>
+    <a class="footer-link" href="https://calendly.com/jeremie-bfsbusinesscamp/demande-de-rendez-vous" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none">📅 Prendre RDV</a>
   </div>
   <div style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,.06);font-size:11px;color:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;gap:6px">
     <span>Powered by</span>
     <span style="font-weight:800;color:rgba(255,255,255,.35);letter-spacing:.04em">BigFive Solutions</span>
     <span>·</span>
-    <span>bigfiveaabidjan.com</span>
+    <span>bigfiveabidjan.com</span>
   </div>
 </footer>
 
 <!-- ══ DEMO MODAL ══ -->
-<div class="modal-overlay" id="demo-modal">
-  <button class="modal-close" onclick="closeModal()">✕</button>
+<div class="modal-overlay" id="demo-modal" role="dialog" aria-modal="true" aria-labelledby="modal-label">
+  <button class="modal-close" type="button" onclick="closeModal()" aria-label="Fermer la démo">✕</button>
   <div class="modal-phone" id="modal-phone">
     <div class="modal-casing"></div>
     <div class="modal-bezel">
       <div class="modal-island"></div>
       <div class="modal-home"></div>
-      <iframe id="modal-iframe" class="modal-iframe" src="" title="Démo Babi Vibes"></iframe>
+      <iframe id="modal-iframe" class="modal-iframe" src="" title="Démo Babi Vibes" loading="lazy"></iframe>
     </div>
   </div>
   <div class="modal-label" id="modal-label">Démo interactive · Naviguez librement</div>
@@ -637,6 +716,15 @@ function scrollToSection(selector){
   const el=document.querySelector(selector)
   if(el) el.scrollIntoView({behavior:'smooth',block:'start'})
 }
+
+document.querySelectorAll('.demo-launch').forEach(launch=>{
+  launch.addEventListener('keydown',e=>{
+    if(e.key==='Enter'||e.key===' '){
+      e.preventDefault()
+      launch.click()
+    }
+  })
+})
 
 // ── Nav tab active state ──
 const sections=['demo-consumer','demo-pro','demo-admin']
