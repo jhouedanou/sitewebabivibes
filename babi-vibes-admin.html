@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Babi Vibes Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --primary:#FFD700; --surface:#1E1E1E; --dark:#121212;
+  --g900:#111827; --g800:#1F2937; --g700:#374151; --g600:#4B5563;
+  --g500:#6B7280; --g400:#9CA3AF; --g300:#D1D5DB;
+  --green-4:#4ADE80; --green-5:#22C55E;
+  --yellow-4:#FACC15; --yellow-5:#EAB308;
+  --red-4:#F87171; --red-5:#EF4444;
+  --blue-4:#60A5FA;
+}
+html,body{height:100%;overflow:hidden;font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;background:#050508;color:#fff}
+body::before{content:'';position:fixed;inset:0;z-index:0;
+  background:radial-gradient(ellipse at 20% 30%,rgba(255,215,0,.05) 0%,transparent 55%),
+             radial-gradient(ellipse at 80% 70%,rgba(239,68,68,.04) 0%,transparent 50%),#050508}
+/* ── Phone frame ── */
+#pw{position:fixed;inset:0;z-index:1;display:flex;align-items:center;justify-content:center}
+#ps{position:relative;width:375px;height:812px;flex-shrink:0;
+  filter:drop-shadow(0 40px 80px rgba(0,0,0,.85)) drop-shadow(0 0 1px rgba(255,255,255,.07))}
+@media(max-height:880px){#ps{transform:scale(.88)}}
+@media(max-height:780px){#ps{transform:scale(.78)}}
+@media(max-height:680px){#ps{transform:scale(.68)}}
+@media(max-width:460px){#ps{transform:scale(.78)}}
+#pc{position:absolute;inset:0;border-radius:54px;
+  background:linear-gradient(160deg,#2a2a2e,#18181b 40%,#111114);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.12),inset 0 2px 4px rgba(255,255,255,.06),0 0 0 1px rgba(0,0,0,.9)}
+#pc::before{content:'';position:absolute;left:-3.5px;top:130px;width:3.5px;height:36px;
+  background:linear-gradient(to right,#1a1a1d,#2c2c30);border-radius:2px 0 0 2px;box-shadow:0 50px 0 #222226,0 96px 0 #222226}
+#pc::after{content:'';position:absolute;right:-3.5px;top:160px;width:3.5px;height:70px;
+  background:linear-gradient(to left,#1a1a1d,#2c2c30);border-radius:0 2px 2px 0}
+#pb{position:absolute;inset:10px;border-radius:46px;background:#000;overflow:hidden}
+#di{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:120px;height:34px;
+  background:#000;border-radius:20px;z-index:501;box-shadow:0 0 0 1px rgba(255,255,255,.06);
+  display:flex;align-items:center;justify-content:space-between;padding:0 14px;pointer-events:none}
+.dc{width:10px;height:10px;border-radius:50%;background:#0a0a0f;border:1px solid rgba(255,255,255,.08);box-shadow:inset 0 0 0 2px rgba(239,68,68,.2)}
+.dm{width:6px;height:6px;border-radius:50%;background:#1a1a1f}
+#sb{position:absolute;top:0;left:0;right:0;height:44px;z-index:500;
+  display:flex;align-items:center;justify-content:space-between;padding:10px 20px 0;pointer-events:none}
+.sbt{font-size:13px;font-weight:700}
+.bb{width:22px;height:11px;border:1.5px solid rgba(255,255,255,.6);border-radius:3px;position:relative;overflow:hidden}
+.bf{position:absolute;top:1.5px;left:1.5px;bottom:1.5px;width:70%;background:#fff;border-radius:1px}
+.bt{width:2px;height:5px;background:rgba(255,255,255,.6);border-radius:0 1px 1px 0}
+#hi{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:120px;height:5px;background:rgba(255,255,255,.25);border-radius:3px;z-index:500;pointer-events:none}
+#sc{position:absolute;inset:0;overflow:hidden;border-radius:46px}
+#app{position:absolute;inset:0;background:#000;border-radius:46px;overflow:hidden}
+#dl{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:2;text-align:center}
+.db{font-size:11px;font-weight:700;color:rgba(255,255,255,.18);letter-spacing:.1em;text-transform:uppercase}
+.dh{font-size:10px;color:rgba(255,255,255,.1);margin-top:3px}
+
+/* ── Screens ── */
+.screen{position:absolute;inset:0;overflow:hidden;transition:opacity .3s,transform .3s;opacity:0;transform:translateX(40px);pointer-events:none}
+.screen.active{opacity:1;transform:translateX(0);pointer-events:all}
+.screen.out{opacity:0;transform:translateX(-40px)}
+
+/* ══ S0: AdminLogin ══ */
+#s-login{background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px}
+.login-logo{font-size:32px;font-weight:800;color:var(--primary);margin-bottom:6px;text-align:center}
+.login-sub{font-size:13px;color:var(--g400);text-align:center;margin-bottom:28px}
+.login-card{width:100%;background:var(--surface);border-radius:20px;padding:20px}
+.login-card h2{font-size:18px;font-weight:700;color:#fff;text-align:center;margin-bottom:18px}
+.login-field{position:relative;margin-bottom:12px}
+.lf-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:15px;color:var(--g500)}
+.lf-input{width:100%;background:var(--g900);color:#fff;border:1px solid var(--g700);border-radius:12px;padding:12px 14px 12px 38px;font-size:14px;font-family:inherit;outline:none;transition:border-color .2s}
+.lf-input:focus{border-color:var(--primary)}
+.lf-input::placeholder{color:var(--g500)}
+.login-err{background:rgba(239,68,68,.1);color:var(--red-4);border-radius:10px;padding:8px;font-size:12px;text-align:center;margin-bottom:10px}
+.btn-login{width:100%;padding:13px;border-radius:12px;background:var(--primary);color:#000;font-size:15px;font-weight:800;border:none;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:6px;margin-top:4px}
+.login-back{text-align:center;margin-top:14px;font-size:12px;color:var(--g400);cursor:pointer}
+.login-back:hover{color:var(--primary)}
+/* demo hint */
+.demo-hint{background:rgba(255,215,0,.06);border:1px solid rgba(255,215,0,.15);border-radius:10px;padding:10px 12px;margin-top:12px;font-size:11px;color:var(--g400);line-height:1.6}
+.demo-hint strong{color:var(--primary)}
+
+/* ══ S1: AdminDashboard ══ */
+#s-dashboard{background:#000;overflow-y:auto}
+.adm-hdr{background:var(--surface);border-bottom:1px solid var(--g800);padding:52px 16px 12px;position:sticky;top:0;z-index:40}
+.adm-hdr-inner{display:flex;justify-content:space-between;align-items:center}
+.adm-hdr-title{font-size:18px;font-weight:800;color:var(--primary)}
+.adm-hdr-right{display:flex;align-items:center;gap:12px}
+.adm-link{font-size:12px;color:var(--g400);background:none;border:none;cursor:pointer;font-family:inherit}
+.adm-link:hover{color:#fff}
+.adm-logout{font-size:12px;color:var(--red-4);background:none;border:none;cursor:pointer;font-family:inherit}
+/* Status filter tabs */
+.mod-filters{display:flex;gap:6px;margin:12px 16px 0;overflow-x:auto}
+.mod-filters::-webkit-scrollbar{display:none}
+.mf-tab{flex-shrink:0;padding:6px 12px;border-radius:50px;font-size:11px;font-weight:700;cursor:pointer;border:1px solid;font-family:inherit;transition:all .2s;white-space:nowrap}
+.mf-all    {background:var(--g800);color:var(--g400);border-color:var(--g700)}
+.mf-all.active{background:#fff;color:#000;border-color:#fff}
+.mf-pending{background:var(--g800);color:var(--yellow-4);border-color:var(--g700)}
+.mf-pending.active{background:var(--yellow-5);color:#000;border-color:var(--yellow-5)}
+.mf-approved{background:var(--g800);color:var(--green-4);border-color:var(--g700)}
+.mf-approved.active{background:var(--green-5);color:#000;border-color:var(--green-5)}
+.mf-rejected{background:var(--g800);color:var(--red-4);border-color:var(--g700)}
+.mf-rejected.active{background:var(--red-5);color:#fff;border-color:var(--red-5)}
+/* Section header */
+.sec-hdr{display:flex;justify-content:space-between;align-items:center;padding:14px 16px 0}
+.sec-title{font-size:20px;font-weight:800;color:#fff}
+.sec-count{font-size:13px;color:var(--g400);margin-top:2px}
+.act-row{display:flex;gap:8px;padding:10px 16px 0}
+.btn-new-evt{flex:1;background:var(--primary);color:#000;font-size:13px;font-weight:800;padding:11px;border-radius:12px;border:none;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:5px}
+.btn-ads-link{background:var(--yellow-4);color:#000;font-size:13px;font-weight:800;padding:11px 14px;border-radius:12px;border:none;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:5px}
+/* Event cards grid */
+.evts-grid{padding:12px 16px 90px;display:flex;flex-direction:column;gap:12px}
+.ec{background:var(--surface);border:1px solid var(--g800);border-radius:12px;overflow:hidden;transition:border-color .2s}
+.ec:hover{border-color:var(--g700)}
+.ec-img-wrap{position:relative;height:110px;background:var(--g900)}
+.ec-img{width:100%;height:100%;object-fit:cover}
+.ec-no-img{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:28px}
+.ec-status{position:absolute;top:8px;left:8px;padding:3px 8px;border-radius:50px;font-size:10px;font-weight:700;display:flex;align-items:center;gap:3px}
+.s-pending {background:rgba(250,204,21,.2);color:var(--yellow-4)}
+.s-approved{background:rgba(74,222,128,.2);color:var(--green-4)}
+.s-rejected{background:rgba(248,113,113,.2);color:var(--red-4)}
+.ec-prem{position:absolute;top:8px;right:8px;background:rgba(255,215,0,.2);color:var(--primary);font-size:9px;font-weight:800;padding:2px 7px;border-radius:10px}
+.ec-body{padding:11px}
+.ec-title{font-size:13px;font-weight:700;color:#fff;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ec-meta{font-size:11px;color:var(--g400);line-height:1.6;margin-bottom:8px}
+.ec-rej-reason{background:rgba(239,68,68,.08);color:var(--red-4);font-size:10px;padding:5px 8px;border-radius:6px;margin-bottom:8px;font-style:italic}
+/* Moderation buttons */
+.mod-btns{display:flex;gap:6px;margin-bottom:8px}
+.btn-approve{flex:1;background:rgba(74,222,128,.15);color:var(--green-4);font-size:12px;font-weight:700;padding:9px;border-radius:8px;border:none;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:4px;transition:background .2s}
+.btn-approve:hover{background:rgba(74,222,128,.25)}
+.btn-reject{flex:1;background:rgba(239,68,68,.15);color:var(--red-4);font-size:12px;font-weight:700;padding:9px;border-radius:8px;border:none;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:4px;transition:background .2s}
+.btn-reject:hover{background:rgba(239,68,68,.25)}
+/* Edit / Delete actions */
+.ec-actions{display:flex;gap:6px}
+.btn-edit{flex:1;background:var(--g800);color:#fff;font-size:12px;font-weight:600;padding:9px;border-radius:8px;border:none;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:4px}
+.btn-edit:hover{background:var(--g700)}
+.btn-del{background:rgba(239,68,68,.15);color:var(--red-4);padding:9px 11px;border-radius:8px;border:none;cursor:pointer;font-size:14px}
+.btn-del:hover{background:rgba(239,68,68,.25)}
+/* Empty state */
+.empty-state{text-align:center;padding:44px 20px}
+.empty-ico{font-size:44px;margin-bottom:10px}
+.empty-t{font-size:15px;color:var(--g400);margin-bottom:6px}
+.empty-s{font-size:12px;color:var(--g600);margin-bottom:18px}
+.btn-create-1st{background:var(--primary);color:#000;font-size:13px;font-weight:800;padding:11px 22px;border-radius:12px;border:none;cursor:pointer;font-family:inherit}
+
+/* ══ Overlay modals (absolute inside #app) ══ */
+.overlay{position:absolute;inset:0;background:rgba(0,0,0,.85);z-index:200;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(4px)}
+.overlay.show{opacity:1;pointer-events:all}
+.overlay-center{align-items:center;padding:16px}
+.sheet{width:100%;background:var(--surface);border-radius:24px 24px 0 0;padding:0;max-height:88%;overflow-y:auto;transform:translateY(100%);transition:transform .35s}
+.overlay.show .sheet{transform:translateY(0)}
+.sheet-center{background:var(--surface);border-radius:20px;width:100%;padding:20px}
+.sheet-hdr{padding:14px 16px 10px;border-bottom:1px solid var(--g800);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--surface);z-index:10}
+.sheet-title{font-size:17px;font-weight:800;color:#fff}
+.sheet-close{background:none;border:none;color:var(--g400);font-size:22px;cursor:pointer;padding:0;line-height:1}
+.sheet-close:hover{color:#fff}
+.sheet-body{padding:14px 16px 20px}
+
+/* Form elements inside sheet */
+.f-label{display:block;font-size:12px;color:var(--g400);margin-bottom:5px;margin-top:12px}
+.f-label:first-child{margin-top:0}
+.f-input{width:100%;background:var(--g900);color:#fff;border:1px solid var(--g700);border-radius:12px;padding:11px 14px;font-size:14px;font-family:inherit;outline:none;transition:border-color .2s}
+.f-input:focus{border-color:var(--primary)}
+.f-input::placeholder{color:var(--g500)}
+.f-textarea{width:100%;background:var(--g900);color:#fff;border:1px solid var(--g700);border-radius:12px;padding:11px 14px;font-size:14px;font-family:inherit;outline:none;resize:none;line-height:1.5;transition:border-color .2s}
+.f-textarea:focus{border-color:var(--primary)}
+.f-row{display:flex;gap:8px;align-items:center}
+.f-row .f-input{flex:1}
+.mic-btn-sm{background:var(--g800);border:none;color:var(--g400);border-radius:10px;padding:10px 11px;cursor:pointer;font-size:14px;flex-shrink:0}
+.mic-btn-sm:hover{color:var(--primary)}
+.mic-btn-sm.rec{background:rgba(239,68,68,.15);color:var(--red-4);animation:mp 1s infinite}
+@keyframes mp{0%,100%{opacity:1}50%{opacity:.5}}
+/* Media type selector */
+.media-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.media-btn{padding:8px 4px;border-radius:10px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid;font-family:inherit;display:flex;flex-direction:column;align-items:center;gap:3px;transition:all .2s}
+.media-btn-icon{font-size:16px}
+.media-img{background:var(--g800);color:var(--g400);border-color:var(--g700)}
+.media-img.sel{background:rgba(255,215,0,.15);color:var(--primary);border-color:rgba(255,215,0,.4)}
+.media-yt{background:var(--g800);color:var(--g400);border-color:var(--g700)}
+.media-yt.sel{background:rgba(239,68,68,.15);color:var(--red-4);border-color:rgba(239,68,68,.4)}
+.media-tt{background:var(--g800);color:var(--g400);border-color:var(--g700)}
+.media-tt.sel{background:rgba(236,72,153,.15);color:#F472B6;border-color:rgba(236,72,153,.4)}
+/* Tags */
+.tags-grid{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.tag-btn{padding:5px 11px;border-radius:20px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid var(--g700);background:var(--g800);color:var(--g400);font-family:inherit;transition:all .2s}
+.tag-btn.sel{background:rgba(255,215,0,.15);color:var(--primary);border-color:rgba(255,215,0,.4)}
+.tag-sel-list{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.tag-chip{background:rgba(255,215,0,.12);color:var(--primary);font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;display:flex;align-items:center;gap:4px}
+.tag-chip button{background:none;border:none;color:inherit;cursor:pointer;font-size:12px;padding:0;line-height:1}
+/* Premium */
+.prem-row{display:flex;align-items:center;gap:10px;padding:10px 0}
+.prem-check{width:18px;height:18px;cursor:pointer;accent-color:var(--primary)}
+.prem-label{font-size:13px;color:#fff;cursor:pointer}
+/* Submit btn */
+.btn-submit{width:100%;padding:13px;border-radius:12px;background:var(--primary);color:#000;font-size:15px;font-weight:800;border:none;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:6px;margin-top:14px}
+
+/* ══ Reject Modal ══ */
+.rej-modal .sheet-center{max-width:340px}
+.rej-icon{font-size:28px;margin-bottom:8px}
+.rej-title{font-size:17px;font-weight:800;color:#fff;margin-bottom:4px}
+.rej-subtitle{font-size:13px;color:var(--g400);margin-bottom:14px;font-style:italic}
+.btn-row{display:flex;gap:8px;margin-top:12px}
+.btn-cancel{flex:1;padding:12px;border-radius:10px;background:var(--g800);color:var(--g300);font-size:13px;font-weight:700;border:none;cursor:pointer;font-family:inherit}
+.btn-confirm-red{flex:1;padding:12px;border-radius:10px;background:var(--red-5);color:#fff;font-size:13px;font-weight:700;border:none;cursor:pointer;font-family:inherit}
+.btn-confirm-red:disabled{opacity:.35;cursor:not-allowed}
+
+/* ══ Delete Portal ══ */
+.del-step{display:none}
+.del-step.active{display:block}
+.del-warning{background:rgba(239,68,68,.12);color:var(--red-4);border-radius:10px;padding:12px;margin-bottom:12px}
+.del-evt-card{background:var(--g800);border-radius:10px;padding:10px 12px;margin-bottom:12px}
+.del-evt-title{font-size:13px;font-weight:700;color:#fff}
+.del-evt-meta{font-size:11px;color:var(--g400);margin-top:2px}
+.del-instruction{font-size:13px;color:var(--g300);margin-bottom:8px}
+.del-instruction strong{color:var(--red-4)}
+.f-input-center{text-align:center;letter-spacing:.1em;text-transform:uppercase;font-weight:700}
+.del-err{font-size:11px;color:var(--red-4);text-align:center;margin-top:5px}
+
+/* ══ S2: AdsDashboard ══ */
+#s-ads{background:#000;overflow-y:auto}
+.ads-hdr{background:var(--surface);border-bottom:1px solid var(--g800);padding:52px 16px 12px;position:sticky;top:0;z-index:40;display:flex;justify-content:space-between;align-items:center}
+.ads-hdr-left{display:flex;align-items:center;gap:8px}
+.ads-hdr-title{font-size:18px;font-weight:800;color:var(--yellow-4)}
+.ads-back{font-size:12px;color:var(--g400);background:none;border:none;cursor:pointer;font-family:inherit}
+.ads-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:14px 16px 0}
+.ads-kpi{background:var(--surface);border:1px solid var(--g800);border-radius:12px;padding:14px;text-align:center}
+.ads-kpi .val{font-size:24px;font-weight:900}
+.ads-kpi .lbl{font-size:11px;color:var(--g500);margin-top:2px}
+.ads-section-hdr{display:flex;justify-content:space-between;align-items:center;padding:14px 16px 0}
+.ads-section-title{font-size:18px;font-weight:800;color:#fff}
+.btn-new-ad{background:var(--yellow-4);color:#000;font-size:13px;font-weight:800;padding:9px 14px;border-radius:10px;border:none;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:4px}
+.ads-list{padding:10px 16px 90px;display:flex;flex-direction:column;gap:10px}
+.ad-card{background:var(--surface);border:1px solid;border-radius:12px;overflow:hidden;transition:border-color .2s}
+.ad-card.active-ad{border-color:var(--g800)}
+.ad-card.active-ad:hover{border-color:rgba(250,204,21,.4)}
+.ad-card.inactive-ad{border-color:var(--g800);opacity:.6}
+.ad-img-wrap{position:relative;height:100px}
+.ad-img{width:100%;height:100%;object-fit:cover}
+.ad-status-badge{position:absolute;top:8px;left:8px;padding:3px 9px;border-radius:50px;font-size:10px;font-weight:700}
+.ad-active{background:var(--green-5);color:#fff}
+.ad-inactive{background:var(--g600);color:var(--g300)}
+.ad-stats{position:absolute;top:8px;right:8px;display:flex;gap:4px}
+.ad-stat-pill{background:rgba(0,0,0,.6);backdrop-filter:blur(4px);color:#fff;font-size:10px;padding:2px 7px;border-radius:20px;display:flex;align-items:center;gap:3px}
+.ad-stat-pill.clk{color:var(--yellow-4)}
+.ad-body{padding:10px 12px}
+.ad-sponsor-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.ad-avatar{width:28px;height:28px;border-radius:50%;border:1.5px solid rgba(250,204,21,.4)}
+.ad-title{font-size:13px;font-weight:700;color:#fff}
+.ad-sponsor{font-size:11px;color:var(--yellow-4)}
+.ad-desc{font-size:11px;color:var(--g400);margin-bottom:6px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ad-chips{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px}
+.ad-chip{font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;background:rgba(250,204,21,.12);color:var(--yellow-4)}
+.ad-chip-pos{background:var(--g800);color:var(--g400)}
+.ad-actions{display:flex;gap:6px}
+.btn-toggle{flex:1;padding:8px;border-radius:8px;font-size:12px;font-weight:700;border:none;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:4px;transition:background .2s}
+.btn-toggle-on {background:var(--g800);color:var(--green-4)}
+.btn-toggle-on:hover{background:var(--g700)}
+.btn-toggle-off{background:rgba(74,222,128,.12);color:var(--green-4)}
+.btn-toggle-off:hover{background:rgba(74,222,128,.2)}
+.btn-edit-sm{background:var(--g800);color:#fff;padding:8px 10px;border-radius:8px;border:none;cursor:pointer;font-size:13px}
+.btn-del-sm{background:rgba(239,68,68,.12);color:var(--red-4);padding:8px 10px;border-radius:8px;border:none;cursor:pointer;font-size:13px}
+
+/* Toast */
+.toast{position:absolute;bottom:16px;left:50%;transform:translateX(-50%) translateY(14px);background:var(--g800);border:1px solid var(--g700);border-radius:12px;padding:10px 15px;display:flex;gap:8px;align-items:center;opacity:0;transition:all .3s;z-index:500;max-width:88%;pointer-events:none;box-shadow:0 8px 32px rgba(0,0,0,.5)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast-text{font-size:12px;color:#fff;line-height:1.4}
+.toast-text strong{color:var(--primary)}
+
+  /* ── Iframe embed mode : hide phone shell, show app fullscreen ── */
+  body.embedded::before { display: none; }
+  body.embedded #pw { position: fixed; inset: 0; display: flex; align-items: stretch; justify-content: stretch; }
+  body.embedded #ps { width: 100% !important; height: 100% !important; filter: none !important; transform: none !important; }
+  body.embedded #pc,
+  body.embedded #pc::before,
+  body.embedded #pc::after { display: none !important; }
+  body.embedded #pb { inset: 0 !important; border-radius: 0 !important; }
+  body.embedded #di,
+  body.embedded #sb,
+  body.embedded #hi { display: none !important; }
+  body.embedded #sc { border-radius: 0 !important; }
+  body.embedded #app { border-radius: 0 !important; max-width: none !important; margin: 0 !important; }
+  body.embedded #dl { display: none !important; }
+
+
+/* ── Welcome popup admin ── */
+.welcome-popup { position:absolute;inset:0;z-index:400;background:rgba(0,0,0,.84);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:20px;animation:popup-in .4s cubic-bezier(.175,.885,.32,1.275) both; }
+@keyframes popup-in { from{opacity:0;transform:scale(.92)} to{opacity:1;transform:scale(1)} }
+.welcome-popup.out { animation:popup-out .3s ease-in both; }
+@keyframes popup-out { from{opacity:1} to{opacity:0;transform:scale(.94)} }
+.welcome-card { background:#111827;border-radius:20px;padding:24px 20px;width:100%;box-shadow:0 24px 60px rgba(0,0,0,.7);text-align:center; }
+.welcome-emoji { font-size:36px;margin-bottom:10px; }
+.welcome-title { font-size:18px;font-weight:800;color:#fff;margin-bottom:6px; }
+.welcome-sub { font-size:13px;color:#9CA3AF;line-height:1.6;margin-bottom:18px; }
+.welcome-steps { display:flex;flex-direction:column;gap:8px;margin-bottom:18px;text-align:left; }
+.welcome-step { display:flex;gap:10px;align-items:center;border-radius:10px;padding:8px 12px; }
+.ws-icon { font-size:18px;flex-shrink:0; }
+.ws-text { font-size:12px;line-height:1.4; }
+.welcome-btn { width:100%;padding:13px;border-radius:50px;font-size:14px;font-weight:800;border:none;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:8px; }
+
+</style>
+</head>
+<body>
+<script>
+// ── Detect iframe embedding → hide phone shell ──
+if (window.self !== window.top) {
+  document.documentElement.classList.add('embedded');
+  document.addEventListener('DOMContentLoaded', function() {
+    document.body.classList.add('embedded');
+  });
+  // Fallback if DOMContentLoaded already fired
+  if (document.readyState !== 'loading') {
+    document.body.classList.add('embedded');
+  }
+}
+</script>
+<div id="pw">
+  <div id="ps">
+    <div id="pc"></div>
+    <div id="pb">
+      <div id="di"><div class="dc"></div><div class="dm"></div></div>
+      <div id="sb">
+        <div class="sbt" id="clock">9:41</div>
+        <div style="display:flex;align-items:center;gap:6px">
+          <span style="font-size:10px">▲▲▲</span>
+          <div style="display:flex;align-items:center;gap:2px">
+            <div class="bb"><div class="bf"></div></div>
+            <div class="bt"></div>
+          </div>
+        </div>
+      </div>
+      <div id="sc">
+        <div id="app">
+
+
+<!-- ══ WELCOME POPUP ADMIN ══ -->
+<div class="welcome-popup" id="welcome-popup" style="display:none">
+  <div class="welcome-card" style="background:#1F2937;border:1px solid #374151">
+    <div class="welcome-emoji">⚙️</div>
+    <div class="welcome-title">Démo Admin Dashboard</div>
+    <div class="welcome-sub" style="color:#9CA3AF">Connectez-vous et explorez la modération, la création d'événements et la gestion des publicités.</div>
+    <div class="welcome-steps">
+      <div class="welcome-step" style="background:rgba(255,255,255,.05)">
+        <div class="ws-icon">🔑</div>
+        <div class="ws-text" style="color:#D1D5DB">Identifiant : <strong style="color:#FFD700">admin</strong> · Mot de passe : <strong style="color:#FFD700">admin</strong></div>
+      </div>
+      <div class="welcome-step" style="background:rgba(255,255,255,.05)">
+        <div class="ws-icon">✅</div>
+        <div class="ws-text" style="color:#D1D5DB"><strong>Approuvez ou rejetez</strong> les événements en attente</div>
+      </div>
+      <div class="welcome-step" style="background:rgba(255,255,255,.05)">
+        <div class="ws-icon">📣</div>
+        <div class="ws-text" style="color:#D1D5DB">Accédez à la <strong>régie publicitaire</strong> via le bouton "Publicités"</div>
+      </div>
+    </div>
+    <button class="welcome-btn" style="background:#FFD700;color:#000" onclick="dismissWelcomeAdmin()">
+      🔑 Accéder au dashboard
+    </button>
+  </div>
+</div>
+
+<!-- ══ S0: AdminLogin ══ -->
+<div class="screen active" id="s-login">
+  <div class="login-logo">Babi Vibes</div>
+  <div class="login-sub">Administration</div>
+  <div class="login-card">
+    <h2>Connexion Admin</h2>
+    <div class="login-field">
+      <span class="lf-icon">👤</span>
+      <input class="lf-input" id="l-user" type="text" placeholder="Identifiant" oninput="clearLoginErr()">
+    </div>
+    <div class="login-field">
+      <span class="lf-icon">🔒</span>
+      <input class="lf-input" id="l-pass" type="password" placeholder="Mot de passe" oninput="clearLoginErr()" onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <div class="login-err" id="login-err" style="display:none"></div>
+    <button class="btn-login" onclick="doLogin()">🔑 Se connecter</button>
+    <div class="demo-hint">
+      <strong>Démo :</strong> identifiant <strong>admin</strong> · mot de passe <strong>admin</strong>
+    </div>
+  </div>
+  <div class="login-back" onclick="showToast('←','Retour à l\'accueil')">← Retour à l'accueil</div>
+</div>
+
+<!-- ══ S1: AdminDashboard ══ -->
+<div class="screen" id="s-dashboard" style="overflow-y:auto">
+  <div class="adm-hdr">
+    <div class="adm-hdr-inner">
+      <div class="adm-hdr-title">Admin Dashboard</div>
+      <div class="adm-hdr-right">
+        <button class="adm-link" onclick="showToast('🌐','Vue du site utilisateur')">Voir le site</button>
+        <button class="adm-logout" onclick="doLogout()">Déconnexion</button>
+      </div>
+    </div>
+    <!-- Moderation filter tabs -->
+    <div class="mod-filters">
+      <button class="mf-tab mf-all active" id="mf-all" onclick="setModFilter('all',this)">🔘 Tous (<span id="cnt-all">0</span>)</button>
+      <button class="mf-tab mf-pending"   id="mf-pending" onclick="setModFilter('pending',this)">⏳ En attente (<span id="cnt-pending">0</span>)</button>
+      <button class="mf-tab mf-approved"  id="mf-approved" onclick="setModFilter('approved',this)">✅ Approuvés (<span id="cnt-approved">0</span>)</button>
+      <button class="mf-tab mf-rejected"  id="mf-rejected" onclick="setModFilter('rejected',this)">❌ Rejetés (<span id="cnt-rejected">0</span>)</button>
+    </div>
+  </div>
+  <div class="sec-hdr">
+    <div>
+      <div class="sec-title">Gestion des Événements</div>
+      <div class="sec-count" id="evts-count">0 événement(s) affiché(s)</div>
+    </div>
+  </div>
+  <div class="act-row">
+    <button class="btn-new-evt" onclick="openCreateModal()">＋ Nouvel Événement</button>
+    <button class="btn-ads-link" onclick="openAds()">📣 Publicités</button>
+  </div>
+  <div class="evts-grid" id="evts-grid"></div>
+</div>
+
+<!-- ══ S2: AdsDashboard ══ -->
+<div class="screen" id="s-ads" style="overflow-y:auto">
+  <div class="ads-hdr">
+    <div class="ads-hdr-left">
+      <span style="font-size:18px">📣</span>
+      <div class="ads-hdr-title">Gestion des Publicités</div>
+    </div>
+    <button class="ads-back" onclick="openDash()">← Dashboard Admin</button>
+  </div>
+  <div class="ads-kpis">
+    <div class="ads-kpi"><div class="val" id="ads-total" style="color:var(--yellow-4)">3</div><div class="lbl">Total pubs</div></div>
+    <div class="ads-kpi"><div class="val" id="ads-active" style="color:var(--green-4)">2</div><div class="lbl">Actives</div></div>
+    <div class="ads-kpi"><div class="val" id="ads-clicks" style="color:var(--primary)">847</div><div class="lbl">Clics total</div></div>
+  </div>
+  <div class="ads-section-hdr">
+    <div class="ads-section-title">Annonceurs / Sponsors</div>
+    <button class="btn-new-ad" onclick="openAdModal()">＋ Nouvelle Publicité</button>
+  </div>
+  <div class="ads-list" id="ads-list"></div>
+</div>
+
+<!-- ══ Create/Edit Event Modal (sheet) ══ -->
+<div class="overlay" id="create-overlay">
+  <div class="sheet" id="create-sheet">
+    <div class="sheet-hdr">
+      <div class="sheet-title" id="modal-title">Nouvel Événement</div>
+      <button class="sheet-close" onclick="closeCreateModal()">✕</button>
+    </div>
+    <div class="sheet-body">
+      <!-- Recording indicator -->
+      <div id="rec-indicator" style="display:none;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:var(--red-4);font-size:12px;padding:8px 12px;border-radius:10px;text-align:center;margin-bottom:10px;animation:mp 1s infinite">
+        🎤 Parlez maintenant…
+      </div>
+
+      <!-- Media type -->
+      <label class="f-label">Type d'illustration</label>
+      <div class="media-grid">
+        <button class="media-btn media-img sel" id="mt-image" onclick="setMediaType('image',this)" type="button"><span class="media-btn-icon">🖼️</span>Image</button>
+        <button class="media-btn media-yt"    id="mt-youtube" onclick="setMediaType('youtube',this)" type="button"><span class="media-btn-icon">▶️</span>YouTube</button>
+        <button class="media-btn media-yt"    id="mt-ytshort" onclick="setMediaType('ytshort',this)" type="button"><span class="media-btn-icon">📱</span>YT Short</button>
+        <button class="media-btn media-tt"    id="mt-tiktok" onclick="setMediaType('tiktok',this)" type="button"><span class="media-btn-icon">🎵</span>TikTok</button>
+      </div>
+
+      <!-- Image upload zone -->
+      <div id="image-zone">
+        <label class="f-label">Image de l'événement</label>
+        <div id="img-preview-wrap" style="display:none;position:relative;height:110px;border-radius:12px;overflow:hidden;margin-bottom:6px">
+          <img id="img-preview" src="" alt="" style="width:100%;height:100%;object-fit:cover">
+          <button onclick="clearImage()" style="position:absolute;top:6px;right:6px;background:rgba(0,0,0,.6);border:none;color:#fff;border-radius:50%;width:24px;height:24px;cursor:pointer;font-size:13px">✕</button>
+        </div>
+        <div id="img-upload-zone" style="background:var(--g900);border:2px dashed var(--g700);border-radius:12px;height:80px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;cursor:pointer" onclick="pickDemoImg()">
+          <div style="font-size:24px;color:var(--g600)">📷</div>
+          <div style="font-size:12px;color:var(--g500)">Toucher pour ajouter</div>
+        </div>
+        <!-- Demo image picks -->
+        <div style="display:flex;gap:6px;margin-top:8px">
+          <img onclick="setFormImg(this,'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=600&auto=format&fit=crop')" src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=80&auto=format&fit=crop" style="width:44px;height:44px;object-fit:cover;border-radius:7px;cursor:pointer;border:2px solid transparent;transition:border-color .2s" class="demo-img-btn">
+          <img onclick="setFormImg(this,'https://images.unsplash.com/photo-1545128485-c400e7702796?w=600&auto=format&fit=crop')" src="https://images.unsplash.com/photo-1545128485-c400e7702796?w=80&auto=format&fit=crop" style="width:44px;height:44px;object-fit:cover;border-radius:7px;cursor:pointer;border:2px solid transparent;transition:border-color .2s" class="demo-img-btn">
+          <img onclick="setFormImg(this,'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=600&auto=format&fit=crop')" src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=80&auto=format&fit=crop" style="width:44px;height:44px;object-fit:cover;border-radius:7px;cursor:pointer;border:2px solid transparent;transition:border-color .2s" class="demo-img-btn">
+          <img onclick="setFormImg(this,'https://images.unsplash.com/photo-1506157786151-b8491531f063?w=600&auto=format&fit=crop')" src="https://images.unsplash.com/photo-1506157786151-b8491531f063?w=80&auto=format&fit=crop" style="width:44px;height:44px;object-fit:cover;border-radius:7px;cursor:pointer;border:2px solid transparent;transition:border-color .2s" class="demo-img-btn">
+          <img onclick="setFormImg(this,'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&auto=format&fit=crop')" src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=80&auto=format&fit=crop" style="width:44px;height:44px;object-fit:cover;border-radius:7px;cursor:pointer;border:2px solid transparent;transition:border-color .2s" class="demo-img-btn">
+        </div>
+      </div>
+
+      <!-- Video URL zone -->
+      <div id="video-zone" style="display:none">
+        <label class="f-label" id="video-label">URL de la vidéo *</label>
+        <input class="f-input" id="f-video-url" type="url" placeholder="https://www.youtube.com/watch?v=...">
+      </div>
+
+      <!-- Title -->
+      <label class="f-label">Titre *</label>
+      <div class="f-row">
+        <input class="f-input" id="f-title" type="text" placeholder="Ex: Soirée Coupé Décalé">
+        <button class="mic-btn-sm" id="mic-title" onclick="startDictation('title')" type="button">🎤</button>
+      </div>
+
+      <!-- Date -->
+      <label class="f-label">Date et heure *</label>
+      <input class="f-input" id="f-date" type="datetime-local" style="color-scheme:dark">
+
+      <!-- Location -->
+      <label class="f-label">Lieu</label>
+      <div class="f-row">
+        <input class="f-input" id="f-location" type="text" placeholder="Ex: Cocody Riviera 2, Abidjan">
+        <button class="mic-btn-sm" id="mic-loc" onclick="startDictation('location')" type="button">🎤</button>
+        <button class="mic-btn-sm" onclick="autoLocate()" type="button" title="GPS">📍</button>
+      </div>
+
+      <!-- Organizer -->
+      <label class="f-label">Organisateur</label>
+      <div class="f-row">
+        <input class="f-input" id="f-organizer" type="text" placeholder="Ex: Babi Event">
+        <button class="mic-btn-sm" id="mic-org" onclick="startDictation('organizer')" type="button">🎤</button>
+      </div>
+
+      <!-- Description -->
+      <label class="f-label" style="display:flex;justify-content:space-between;align-items:center">
+        Description
+        <div style="display:flex;gap:4px">
+          <button class="mic-btn-sm" id="mic-desc" onclick="startDictation('description')" type="button" style="padding:6px 8px">🎤</button>
+        </div>
+      </label>
+      <textarea class="f-textarea" id="f-desc" rows="3" placeholder="Décrivez votre événement…"></textarea>
+
+      <!-- Premium -->
+      <div class="prem-row">
+        <input type="checkbox" class="prem-check" id="f-premium" onchange="togglePremium()">
+        <label for="f-premium" class="prem-label">Événement Premium</label>
+      </div>
+      <div id="price-field" style="display:none">
+        <label class="f-label">Prix (CFA)</label>
+        <input class="f-input" id="f-price" type="number" min="0" placeholder="Ex: 5000">
+      </div>
+
+      <!-- Tags -->
+      <label class="f-label">Tags / Features</label>
+      <div class="tags-grid" id="tags-grid"></div>
+      <div class="tag-sel-list" id="sel-tags"></div>
+
+      <!-- Music -->
+      <label class="f-label">🎵 Musique de fond (URL YouTube)</label>
+      <input class="f-input" id="f-music" type="url" placeholder="https://www.youtube.com/watch?v=...">
+
+      <!-- Promo -->
+      <label class="f-label">📣 Promotion</label>
+      <div class="f-row">
+        <input class="f-input" id="f-promo" type="text" placeholder="Ex: 2 achetées = 1 offerte…">
+        <button class="mic-btn-sm" id="mic-promo" onclick="startDictation('promo')" type="button">🎤</button>
+      </div>
+
+      <!-- GPS coords display -->
+      <label class="f-label">📍 Coordonnées GPS</label>
+      <input class="f-input" id="f-coords" type="text" placeholder="Abidjan (par défaut)" readonly style="color:var(--g400)">
+
+      <button class="btn-submit" onclick="submitEvent()">
+        💾 <span id="submit-label">Créer l'événement</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ Reject Modal ══ -->
+<div class="overlay overlay-center" id="reject-overlay">
+  <div class="sheet-center rej-modal">
+    <div class="rej-icon">🚫</div>
+    <div class="rej-title">Rejeter l'événement</div>
+    <div class="rej-subtitle" id="rej-evt-title">« Nom de l'événement »</div>
+    <label class="f-label" style="margin-top:0">Motif du rejet *</label>
+    <textarea class="f-textarea" id="rej-reason" rows="3" placeholder="Expliquez pourquoi cet événement est rejeté…"></textarea>
+    <div class="btn-row">
+      <button class="btn-cancel" onclick="closeRejectModal()">Annuler</button>
+      <button class="btn-confirm-red" id="rej-confirm-btn" onclick="confirmReject()" disabled>Confirmer le rejet</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ Delete Portal ══ -->
+<div class="overlay overlay-center" id="del-overlay">
+  <div class="sheet-center">
+    <!-- Step 1: type SUPPRIMER -->
+    <div class="del-step active" id="del-s1">
+      <div class="del-warning">⚠️ Cette action est irréversible.</div>
+      <div class="del-evt-card">
+        <div class="del-evt-title" id="del-evt-title">Événement</div>
+        <div class="del-evt-meta" id="del-evt-meta"></div>
+      </div>
+      <div class="del-instruction">Pour confirmer, tapez <strong>SUPPRIMER</strong> ci-dessous :</div>
+      <input class="f-input f-input-center" id="del-confirm-input" type="text" placeholder="SUPPRIMER" oninput="checkDelStep1()">
+      <div class="del-err" id="del-err1"></div>
+      <div class="btn-row" style="margin-top:12px">
+        <button class="btn-cancel" onclick="closeDelPortal()">Annuler</button>
+        <button class="btn-confirm-red" id="del-s1-btn" onclick="goDelStep2()" disabled style="background:rgba(239,68,68,.2);color:var(--red-4)">Continuer →</button>
+      </div>
+    </div>
+    <!-- Step 2: password -->
+    <div class="del-step" id="del-s2">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+        <div style="background:rgba(239,68,68,.15);border-radius:10px;padding:10px;font-size:20px">🔒</div>
+        <div>
+          <div style="font-size:16px;font-weight:800;color:#fff">Vérification d'identité</div>
+          <div style="font-size:11px;color:var(--g400)">Dernière étape de sécurité</div>
+        </div>
+      </div>
+      <div class="del-instruction">Entrez le mot de passe administrateur :</div>
+      <input class="f-input" id="del-pass-input" type="password" placeholder="Mot de passe admin">
+      <div class="del-err" id="del-err2"></div>
+      <div class="btn-row" style="margin-top:12px">
+        <button class="btn-cancel" onclick="backDelStep1()">← Retour</button>
+        <button class="btn-confirm-red" onclick="executeDelete()">🗑 Supprimer définitivement</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ Ad Modal ══ -->
+<div class="overlay" id="ad-overlay">
+  <div class="sheet">
+    <div class="sheet-hdr">
+      <div class="sheet-title" id="ad-modal-title">Nouvelle Publicité</div>
+      <button class="sheet-close" onclick="closeAdModal()">✕</button>
+    </div>
+    <div class="sheet-body">
+      <label class="f-label" style="margin-top:0">Image de la publicité</label>
+      <div id="ad-img-prev-wrap" style="display:none;position:relative;height:90px;border-radius:12px;overflow:hidden;margin-bottom:6px">
+        <img id="ad-img-prev" src="" alt="" style="width:100%;height:100%;object-fit:cover">
+        <button onclick="clearAdImg()" style="position:absolute;top:6px;right:6px;background:rgba(0,0,0,.6);border:none;color:#fff;border-radius:50%;width:22px;height:22px;cursor:pointer;font-size:12px">✕</button>
+      </div>
+      <div style="display:flex;gap:6px;margin-bottom:12px">
+        <img onclick="setAdImg(this,'https://images.unsplash.com/photo-1535268244197-63e388f7e48a?w=600&auto=format&fit=crop')" src="https://images.unsplash.com/photo-1535268244197-63e388f7e48a?w=80&auto=format&fit=crop" style="width:44px;height:44px;object-fit:cover;border-radius:7px;cursor:pointer;border:2px solid transparent;transition:border-color .2s" class="demo-img-btn">
+        <img onclick="setAdImg(this,'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&auto=format&fit=crop')" src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=80&auto=format&fit=crop" style="width:44px;height:44px;object-fit:cover;border-radius:7px;cursor:pointer;border:2px solid transparent;transition:border-color .2s" class="demo-img-btn">
+        <img onclick="setAdImg(this,'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=600&auto=format&fit=crop')" src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=80&auto=format&fit=crop" style="width:44px;height:44px;object-fit:cover;border-radius:7px;cursor:pointer;border:2px solid transparent;transition:border-color .2s" class="demo-img-btn">
+        <img onclick="setAdImg(this,'https://images.unsplash.com/photo-1527529482837-4698179dc6ce?w=600&auto=format&fit=crop')" src="https://images.unsplash.com/photo-1527529482837-4698179dc6ce?w=80&auto=format&fit=crop" style="width:44px;height:44px;object-fit:cover;border-radius:7px;cursor:pointer;border:2px solid transparent;transition:border-color .2s" class="demo-img-btn">
+      </div>
+      <label class="f-label" style="margin-top:0">Titre *</label>
+      <input class="f-input" id="ad-title" type="text" placeholder="Ex: Brasserie Star — Promo été">
+      <label class="f-label">Description</label>
+      <textarea class="f-textarea" id="ad-desc" rows="2" placeholder="Texte de la publicité…"></textarea>
+      <label class="f-label">Sponsor *</label>
+      <input class="f-input" id="ad-sponsor" type="text" placeholder="Ex: Brasserie Star CI">
+      <label class="f-label">Lien (URL)</label>
+      <input class="f-input" id="ad-link" type="url" placeholder="https://…">
+      <label class="f-label">Texte du bouton CTA</label>
+      <input class="f-input" id="ad-cta" type="text" placeholder="Ex: En savoir plus" value="En savoir plus">
+      <label class="f-label">Position d'affichage</label>
+      <input class="f-input" id="ad-pos" type="number" min="0" placeholder="0" value="0">
+      <button class="btn-submit" onclick="submitAd()" style="background:var(--yellow-4)">💾 Enregistrer la publicité</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"><span id="t-icon"></span>&nbsp;<div class="toast-text" id="t-text"></div></div>
+
+        </div>
+      </div>
+      <div id="hi"></div>
+    </div>
+  </div>
+</div>
+
+<div id="dl">
+  <div class="db">Babi Vibes Admin · Démo dashboard</div>
+  <div class="dh">Connexion → Modération → Création → Publicités</div>
+</div>
+
+<script>
+// ══ State ══
+let modFilter='all', events=[], ads=[], editingId=null, rejectingId=null, deletingId=null
+let voicing=false, voiceField='', formImg='', adImg='', selectedTags=[], mediaType='image', editingAdId=null
+
+const PREDEFINED_TAGS=['VIP Access','Free Drink','Photo Booth','Live DJ','Open Bar','Dress Code','Parking','Guest List','After Party','Buffet','Piscine','Jeux']
+const VOICE_TITLES=['Soirée Black & White ✨','Concert Afrobeats — Espace Latrille','Ladies Night — Entrée Libre','DJ Set Live — Maquis Zone 4','Nuit Jazz & Cocktails 🎷']
+const VOICE_DESCS=['Rejoignez-nous pour une nuit inoubliable ! DJ au programme, ambiance festive. Entrée gratuite sur présentation de l\'app Babi Vibes.','Grande soirée musicale. Consommations à prix réduit dès 22h. Réservation recommandée.','Venez profiter d\'une soirée exceptionnelle. Cocktails offerts pour les dames avant 23h.']
+const DEMO_IMGS=['https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=600&auto=format&fit=crop','https://images.unsplash.com/photo-1571266028243-e4733b0f0bb0?w=600&auto=format&fit=crop','https://images.unsplash.com/photo-1545128485-c400e7702796?w=600&auto=format&fit=crop']
+
+// Seed data
+events=[
+  {id:1,title:"Soirée Prestige — Maquis Le Star",date:"2026-06-15T21:00",location:"Marcory Zone 4, Abidjan",organizer:"Babi Event",image:DEMO_IMGS[0],status:"pending",isPremium:false,price:0},
+  {id:2,title:"DJ Polo Live — Club 225",date:"2026-06-20T22:00",location:"Cocody Riviera 2, Abidjan",organizer:"Club 225",image:DEMO_IMGS[1],status:"approved",isPremium:true,price:5000},
+  {id:3,title:"Yop Summer Vibes 🌴",date:"2026-06-25T21:00",location:"Yopougon Niangon, Abidjan",organizer:"Yop Enjaillement",image:DEMO_IMGS[2],status:"rejected",rejectionReason:"Photos non conformes à la charte",isPremium:false,price:0},
+]
+ads=[
+  {id:1,title:"Brasserie Star — Pack Promo Été",description:"Pack 6 bouteilles à prix réduit jusqu'au 30 juin. Disponible dans tous les points de vente partenaires.",image:"https://images.unsplash.com/photo-1535268244197-63e388f7e48a?w=600&auto=format&fit=crop",sponsor:"Brasserie Star CI",link:"#",ctaText:"Profiter de l'offre",isActive:true,position:0,viewCount:1247,clickCount:423},
+  {id:2,title:"MTN Mobile Money — Payez en soirée",description:"Réglez vos consommations directement depuis l'app avec MoMo.",image:"https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=600&auto=format&fit=crop",sponsor:"MTN Côte d'Ivoire",link:"#",ctaText:"Découvrir MoMo",isActive:true,position:1,viewCount:890,clickCount:312},
+  {id:3,title:"La Croisette — Club Premium",description:"Réservez votre table VIP pour la saison.",image:"https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&auto=format&fit=crop",sponsor:"La Croisette Abidjan",link:"#",ctaText:"Réserver",isActive:false,position:2,viewCount:234,clickCount:112},
+]
+
+// ══ Screen nav ══
+function goScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>{
+    if(!s.classList.contains('active'))return
+    s.classList.remove('active');s.classList.add('out')
+    setTimeout(()=>s.classList.remove('out'),380)
+  })
+  setTimeout(()=>document.getElementById(id)?.classList.add('active'),60)
+}
+
+// ══ Login ══
+function clearLoginErr(){document.getElementById('login-err').style.display='none'}
+function doLogin(){
+  const u=document.getElementById('l-user').value.trim()
+  const p=document.getElementById('l-pass').value.trim()
+  const e=document.getElementById('login-err')
+  if(u==='admin'&&p==='admin'){
+    renderDash(); goScreen('s-dashboard')
+    showToast('✅','Connecté en tant qu\'<strong>Admin</strong>')
+  } else {
+    e.textContent='Identifiant ou mot de passe incorrect'; e.style.display='block'
+  }
+}
+function doLogout(){
+  document.getElementById('l-user').value=''
+  document.getElementById('l-pass').value=''
+  goScreen('s-login')
+  showToast('👋','Déconnexion réussie')
+}
+
+// ══ Dashboard ══
+function openDash(){renderDash();goScreen('s-dashboard')}
+function openAds(){renderAds();goScreen('s-ads')}
+
+function updateModCounts(){
+  const t=events.length, pe=events.filter(e=>e.status==='pending').length,
+        ap=events.filter(e=>e.status==='approved').length, re=events.filter(e=>e.status==='rejected').length
+  document.getElementById('cnt-all').textContent=t
+  document.getElementById('cnt-pending').textContent=pe
+  document.getElementById('cnt-approved').textContent=ap
+  document.getElementById('cnt-rejected').textContent=re
+}
+function setModFilter(f,btn){
+  modFilter=f
+  document.querySelectorAll('.mf-tab').forEach(t=>{
+    t.classList.remove('active')
+    const cls=t.id.replace('mf-','mf-')
+  })
+  btn.classList.add('active')
+  renderDash()
+}
+function renderDash(){
+  updateModCounts()
+  const filtered=modFilter==='all'?events:events.filter(e=>
+    modFilter==='approved'?(!e.status||e.status==='approved'):e.status===modFilter)
+  document.getElementById('evts-count').textContent=`${filtered.length} événement(s) affiché(s)`
+  const grid=document.getElementById('evts-grid')
+  if(!filtered.length){
+    grid.innerHTML=`<div class="empty-state"><div class="empty-ico">📅</div><div class="empty-t">Aucun événement ici</div><div class="empty-s">Créez votre premier événement</div><button class="btn-create-1st" onclick="openCreateModal()">＋ Créer un événement</button></div>`
+    return
+  }
+  grid.innerHTML=filtered.map(ev=>{
+    const sc=ev.status==='pending'?'s-pending':ev.status==='rejected'?'s-rejected':'s-approved'
+    const sb=ev.status==='pending'?'⏳ En attente':ev.status==='rejected'?'❌ Rejeté':'✅ Approuvé'
+    const ds=ev.date?new Date(ev.date).toLocaleDateString('fr-FR',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}):''
+    return `<div class="ec">
+      <div class="ec-img-wrap">${ev.image?`<img class="ec-img" src="${ev.image}" alt="">`:'<div class="ec-no-img">📅</div>'}
+        <div class="ec-status ${sc}">${sb}</div>
+        ${ev.isPremium?`<div class="ec-prem">Premium · ${Number(ev.price||0).toLocaleString()} CFA</div>`:''}
+      </div>
+      <div class="ec-body">
+        <div class="ec-title">${ev.title}</div>
+        <div class="ec-meta">📅 ${ds}<br>📍 ${ev.location||'Abidjan'}<br>👤 ${ev.organizer||'—'}</div>
+        ${ev.status==='rejected'&&ev.rejectionReason?`<div class="ec-rej-reason">Motif : ${ev.rejectionReason}</div>`:''}
+        ${ev.status==='pending'?`<div class="mod-btns">
+          <button class="btn-approve" onclick="approveEvent(${ev.id})">✅ Approuver</button>
+          <button class="btn-reject" onclick="openRejectModal(${ev.id})">❌ Rejeter</button>
+        </div>`:''}
+        <div class="ec-actions">
+          <button class="btn-edit" onclick="openEditModal(${ev.id})">✏️ Modifier</button>
+          <button class="btn-del" onclick="openDelPortal(${ev.id})">🗑</button>
+        </div>
+      </div>
+    </div>`
+  }).join('')
+}
+
+// Moderation
+function approveEvent(id){
+  const ev=events.find(e=>e.id===id); if(!ev)return
+  ev.status='approved'; ev.rejectionReason=''
+  renderDash(); showToast('✅',`<strong>${ev.title.split('—')[0].trim()}</strong> approuvé`)
+}
+function openRejectModal(id){
+  rejectingId=id
+  const ev=events.find(e=>e.id===id); if(!ev)return
+  document.getElementById('rej-evt-title').textContent=`« ${ev.title} »`
+  document.getElementById('rej-reason').value=''
+  document.getElementById('rej-confirm-btn').disabled=true
+  document.getElementById('reject-overlay').classList.add('show')
+}
+function closeRejectModal(){document.getElementById('reject-overlay').classList.remove('show')}
+document.getElementById('rej-reason').addEventListener('input',function(){
+  document.getElementById('rej-confirm-btn').disabled=!this.value.trim()
+})
+function confirmReject(){
+  const reason=document.getElementById('rej-reason').value.trim()
+  const ev=events.find(e=>e.id===rejectingId); if(!ev)return
+  ev.status='rejected'; ev.rejectionReason=reason
+  closeRejectModal(); renderDash()
+  showToast('❌',`<strong>${ev.title.split('—')[0].trim()}</strong> rejeté`)
+}
+
+// Delete portal
+function openDelPortal(id){
+  deletingId=id
+  const ev=events.find(e=>e.id===id); if(!ev)return
+  document.getElementById('del-evt-title').textContent=ev.title
+  document.getElementById('del-evt-meta').textContent=`${ev.location||'Abidjan'} · ${ev.date?new Date(ev.date).toLocaleDateString('fr-FR'):''}`
+  document.getElementById('del-confirm-input').value=''
+  document.getElementById('del-pass-input').value=''
+  document.getElementById('del-err1').textContent=''
+  document.getElementById('del-err2').textContent=''
+  document.getElementById('del-s1-btn').disabled=true
+  document.getElementById('del-s1').classList.add('active')
+  document.getElementById('del-s2').classList.remove('active')
+  document.getElementById('del-overlay').classList.add('show')
+}
+function closeDelPortal(){document.getElementById('del-overlay').classList.remove('show')}
+function checkDelStep1(){
+  const v=document.getElementById('del-confirm-input').value.trim().toUpperCase()
+  document.getElementById('del-s1-btn').disabled=v!=='SUPPRIMER'
+}
+function goDelStep2(){
+  document.getElementById('del-s1').classList.remove('active')
+  document.getElementById('del-s2').classList.add('active')
+}
+function backDelStep1(){
+  document.getElementById('del-s2').classList.remove('active')
+  document.getElementById('del-s1').classList.add('active')
+}
+function executeDelete(){
+  const pass=document.getElementById('del-pass-input').value.trim()
+  if(pass!=='admin'){document.getElementById('del-err2').textContent='Mot de passe admin incorrect'; return}
+  const ev=events.find(e=>e.id===deletingId); if(!ev)return
+  events=events.filter(e=>e.id!==deletingId)
+  closeDelPortal(); renderDash()
+  showToast('🗑',`<strong>${ev.title.split('—')[0].trim()}</strong> supprimé`)
+}
+
+// ══ Create/Edit Modal ══
+function buildTagsGrid(){
+  document.getElementById('tags-grid').innerHTML=PREDEFINED_TAGS.map(t=>`
+    <button type="button" class="tag-btn ${selectedTags.includes(t)?'sel':''}" onclick="toggleTag('${t}')">${selectedTags.includes(t)?'✓ ':'+'}${t}</button>
+  `).join('')
+  document.getElementById('sel-tags').innerHTML=selectedTags.map((t,i)=>`
+    <div class="tag-chip">✨ ${t}<button onclick="removeTag(${i})" type="button">✕</button></div>
+  `).join('')
+}
+function toggleTag(t){
+  const i=selectedTags.indexOf(t)
+  if(i>=0)selectedTags.splice(i,1); else selectedTags.push(t)
+  buildTagsGrid()
+}
+function removeTag(i){selectedTags.splice(i,1);buildTagsGrid()}
+
+function setMediaType(type, btn){
+  mediaType=type
+  document.querySelectorAll('.media-btn').forEach(b=>b.classList.remove('sel'))
+  btn.classList.add('sel')
+  document.getElementById('image-zone').style.display=type==='image'?'block':'none'
+  document.getElementById('video-zone').style.display=type!=='image'?'block':'none'
+  const labels={youtube:'URL YouTube (youtube.com/watch?v=...)',ytshort:'URL YouTube Shorts',tiktok:'URL TikTok (@user/video/...)'}
+  if(type!=='image') document.getElementById('video-label').textContent=labels[type]||'URL vidéo *'
+}
+
+function setFormImg(el,url){
+  formImg=url
+  document.querySelectorAll('.demo-img-btn').forEach(b=>b.style.borderColor='transparent')
+  el.style.borderColor='var(--primary)'
+  document.getElementById('img-preview').src=url
+  document.getElementById('img-preview-wrap').style.display='block'
+  document.getElementById('img-upload-zone').style.display='none'
+}
+function clearImage(){
+  formImg=''; document.getElementById('img-preview').src=''
+  document.getElementById('img-preview-wrap').style.display='none'
+  document.getElementById('img-upload-zone').style.display='flex'
+  document.querySelectorAll('.demo-img-btn').forEach(b=>b.style.borderColor='transparent')
+}
+function pickDemoImg(){showToast('📸','Choisissez une image ci-dessous')}
+
+function openCreateModal(){
+  editingId=null; formImg=''; selectedTags=[]; mediaType='image'
+  document.getElementById('modal-title').textContent='Nouvel Événement'
+  document.getElementById('submit-label').textContent='Créer l\'événement'
+  document.getElementById('f-title').value=''
+  document.getElementById('f-date').value=new Date(Date.now()+86400000).toISOString().slice(0,16)
+  document.getElementById('f-location').value=''
+  document.getElementById('f-organizer').value='Admin'
+  document.getElementById('f-desc').value=''
+  document.getElementById('f-premium').checked=false
+  document.getElementById('f-price').value=''
+  document.getElementById('f-music').value=''
+  document.getElementById('f-promo').value=''
+  document.getElementById('f-video-url').value=''
+  document.getElementById('f-coords').value=''
+  document.getElementById('price-field').style.display='none'
+  clearImage(); buildTagsGrid()
+  setMediaType('image', document.getElementById('mt-image'))
+  document.getElementById('create-overlay').classList.add('show')
+}
+function openEditModal(id){
+  const ev=events.find(e=>e.id===id); if(!ev)return
+  editingId=id; formImg=ev.image||''; selectedTags=ev.features?[...ev.features]:[]
+  document.getElementById('modal-title').textContent='Modifier l\'événement'
+  document.getElementById('submit-label').textContent='Enregistrer les modifications'
+  document.getElementById('f-title').value=ev.title
+  document.getElementById('f-date').value=ev.date?ev.date.slice(0,16):''
+  document.getElementById('f-location').value=ev.location||''
+  document.getElementById('f-organizer').value=ev.organizer||''
+  document.getElementById('f-desc').value=ev.description||''
+  document.getElementById('f-premium').checked=ev.isPremium||false
+  document.getElementById('f-price').value=ev.price||''
+  document.getElementById('price-field').style.display=ev.isPremium?'block':'none'
+  if(formImg){document.getElementById('img-preview').src=formImg;document.getElementById('img-preview-wrap').style.display='block';document.getElementById('img-upload-zone').style.display='none'}
+  else{clearImage()}
+  buildTagsGrid()
+  document.getElementById('create-overlay').classList.add('show')
+}
+function closeCreateModal(){document.getElementById('create-overlay').classList.remove('show')}
+function togglePremium(){
+  document.getElementById('price-field').style.display=document.getElementById('f-premium').checked?'block':'none'
+}
+function autoLocate(){
+  document.getElementById('f-location').value='Cocody Riviera 2, Abidjan'
+  document.getElementById('f-coords').value='5.3677, -3.9764'
+  showToast('📍','Position GPS détectée')
+}
+function submitEvent(){
+  const title=document.getElementById('f-title').value.trim()
+  if(!title){showToast('⚠️','Le titre est requis');return}
+  if(editingId){
+    const ev=events.find(e=>e.id===editingId); if(!ev)return
+    ev.title=title; ev.date=document.getElementById('f-date').value
+    ev.location=document.getElementById('f-location').value; ev.organizer=document.getElementById('f-organizer').value
+    ev.description=document.getElementById('f-desc').value; ev.isPremium=document.getElementById('f-premium').checked
+    ev.price=parseFloat(document.getElementById('f-price').value)||0; ev.features=[...selectedTags]
+    if(formImg)ev.image=formImg
+    closeCreateModal(); renderDash(); showToast('✅',`<strong>${title}</strong> mis à jour`)
+  } else {
+    events.unshift({id:Date.now(),title,date:document.getElementById('f-date').value,
+      location:document.getElementById('f-location').value, organizer:document.getElementById('f-organizer').value,
+      description:document.getElementById('f-desc').value, isPremium:document.getElementById('f-premium').checked,
+      price:parseFloat(document.getElementById('f-price').value)||0, features:[...selectedTags],
+      image:formImg||DEMO_IMGS[0], status:'approved'})
+    closeCreateModal(); renderDash(); showToast('✅',`<strong>${title}</strong> créé`)
+  }
+}
+
+// ══ Voice dictation ══
+const VOICE_FIELDS={
+  title:()=>document.getElementById('f-title').value=VOICE_TITLES[Math.floor(Math.random()*VOICE_TITLES.length)],
+  location:()=>document.getElementById('f-location').value='Cocody Riviera 2, Abidjan',
+  organizer:()=>document.getElementById('f-organizer').value='Babi Event',
+  description:()=>document.getElementById('f-desc').value=VOICE_DESCS[Math.floor(Math.random()*VOICE_DESCS.length)],
+  promo:()=>document.getElementById('f-promo').value='2 achetées = 1 offerte · Happy Hour 22h-23h',
+}
+function startDictation(field){
+  if(voicing)return; voicing=true; voiceField=field
+  const btn=document.getElementById('mic-'+field)
+  if(btn){btn.classList.add('rec');btn.textContent='🔴'}
+  document.getElementById('rec-indicator').style.display='block'
+  setTimeout(()=>{
+    VOICE_FIELDS[field]&&VOICE_FIELDS[field]()
+    if(btn){btn.classList.remove('rec');btn.textContent='🎤'}
+    document.getElementById('rec-indicator').style.display='none'
+    voicing=false; showToast('✅','Transcription terminée')
+  },2000)
+}
+
+// ══ Ads ══
+function renderAds(){
+  const total=ads.length, active=ads.filter(a=>a.isActive).length
+  const clicks=ads.reduce((s,a)=>s+(a.clickCount||0),0)
+  document.getElementById('ads-total').textContent=total
+  document.getElementById('ads-active').textContent=active
+  document.getElementById('ads-clicks').textContent=clicks.toLocaleString()
+  const list=document.getElementById('ads-list')
+  if(!ads.length){list.innerHTML='<div class="empty-state"><div class="empty-ico">📣</div><div class="empty-t">Aucune publicité</div><div class="empty-s">Créez votre première publicité</div></div>';return}
+  list.innerHTML=ads.map(ad=>`
+    <div class="ad-card ${ad.isActive?'active-ad':'inactive-ad'}">
+      <div class="ad-img-wrap">
+        <img class="ad-img" src="${ad.image}" alt="">
+        <div class="ad-status-badge ${ad.isActive?'ad-active':'ad-inactive'}">${ad.isActive?'● ACTIVE':'○ INACTIVE'}</div>
+        <div class="ad-stats">
+          <div class="ad-stat-pill">👁 ${(ad.viewCount||0).toLocaleString()}</div>
+          <div class="ad-stat-pill clk">🖱 ${(ad.clickCount||0).toLocaleString()}</div>
+        </div>
+      </div>
+      <div class="ad-body">
+        <div class="ad-sponsor-row">
+          <img class="ad-avatar" src="https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(ad.sponsor)}" alt="">
+          <div><div class="ad-title">${ad.title}</div><div class="ad-sponsor">${ad.sponsor}</div></div>
+        </div>
+        <div class="ad-desc">${ad.description}</div>
+        <div class="ad-chips">
+          <div class="ad-chip">CTA: ${ad.ctaText||'En savoir plus'}</div>
+          <div class="ad-chip ad-chip-pos">Pos: ${ad.position||0}</div>
+        </div>
+        <div class="ad-actions">
+          <button class="btn-toggle ${ad.isActive?'btn-toggle-on':'btn-toggle-off'}" onclick="toggleAd(${ad.id})">
+            ${ad.isActive?'⏸ Désactiver':'▶ Activer'}
+          </button>
+          <button class="btn-edit-sm" onclick="openEditAdModal(${ad.id})">✏️</button>
+          <button class="btn-del-sm" onclick="deleteAd(${ad.id})">🗑</button>
+        </div>
+      </div>
+    </div>
+  `).join('')
+}
+function toggleAd(id){
+  const ad=ads.find(a=>a.id===id); if(!ad)return
+  ad.isActive=!ad.isActive; renderAds()
+  showToast(ad.isActive?'▶':'⏸',`Pub <strong>${ad.isActive?'activée':'désactivée'}</strong>`)
+}
+function deleteAd(id){
+  const ad=ads.find(a=>a.id===id); if(!ad)return
+  ads=ads.filter(a=>a.id!==id); renderAds()
+  showToast('🗑',`<strong>${ad.title}</strong> supprimée`)
+}
+function openAdModal(){
+  editingAdId=null; adImg=''
+  document.getElementById('ad-modal-title').textContent='Nouvelle Publicité'
+  document.getElementById('ad-title').value=''
+  document.getElementById('ad-desc').value=''
+  document.getElementById('ad-sponsor').value=''
+  document.getElementById('ad-link').value=''
+  document.getElementById('ad-cta').value='En savoir plus'
+  document.getElementById('ad-pos').value='0'
+  clearAdImg()
+  document.getElementById('ad-overlay').classList.add('show')
+}
+function openEditAdModal(id){
+  const ad=ads.find(a=>a.id===id); if(!ad)return
+  editingAdId=id; adImg=ad.image||''
+  document.getElementById('ad-modal-title').textContent='Modifier la publicité'
+  document.getElementById('ad-title').value=ad.title
+  document.getElementById('ad-desc').value=ad.description
+  document.getElementById('ad-sponsor').value=ad.sponsor
+  document.getElementById('ad-link').value=ad.link||''
+  document.getElementById('ad-cta').value=ad.ctaText||'En savoir plus'
+  document.getElementById('ad-pos').value=ad.position||0
+  if(adImg){document.getElementById('ad-img-prev').src=adImg;document.getElementById('ad-img-prev-wrap').style.display='block'}
+  document.getElementById('ad-overlay').classList.add('show')
+}
+function closeAdModal(){document.getElementById('ad-overlay').classList.remove('show')}
+function setAdImg(el,url){
+  adImg=url
+  document.querySelectorAll('.demo-img-btn').forEach(b=>b.style.borderColor='transparent')
+  el.style.borderColor='var(--yellow-4)'
+  document.getElementById('ad-img-prev').src=url
+  document.getElementById('ad-img-prev-wrap').style.display='block'
+}
+function clearAdImg(){
+  adImg=''; document.getElementById('ad-img-prev').src=''
+  document.getElementById('ad-img-prev-wrap').style.display='none'
+}
+function submitAd(){
+  const title=document.getElementById('ad-title').value.trim()
+  const sponsor=document.getElementById('ad-sponsor').value.trim()
+  if(!title||!sponsor){showToast('⚠️','Titre et sponsor requis');return}
+  if(editingAdId){
+    const ad=ads.find(a=>a.id===editingAdId); if(!ad)return
+    ad.title=title; ad.description=document.getElementById('ad-desc').value
+    ad.sponsor=sponsor; ad.link=document.getElementById('ad-link').value
+    ad.ctaText=document.getElementById('ad-cta').value||'En savoir plus'
+    ad.position=parseInt(document.getElementById('ad-pos').value)||0
+    if(adImg)ad.image=adImg
+    closeAdModal(); renderAds(); showToast('✅',`<strong>${title}</strong> mise à jour`)
+  } else {
+    ads.unshift({id:Date.now(),title,description:document.getElementById('ad-desc').value,
+      sponsor,link:document.getElementById('ad-link').value,
+      ctaText:document.getElementById('ad-cta').value||'En savoir plus',
+      position:parseInt(document.getElementById('ad-pos').value)||0,
+      image:adImg||'https://images.unsplash.com/photo-1535268244197-63e388f7e48a?w=600&auto=format&fit=crop',
+      isActive:true, viewCount:0, clickCount:0})
+    closeAdModal(); renderAds(); showToast('✅',`<strong>${title}</strong> créée`)
+  }
+}
+
+// ══ Toast ══
+function showToast(icon,text){
+  const t=document.getElementById('toast')
+  document.getElementById('t-icon').textContent=icon
+  document.getElementById('t-text').innerHTML=text
+  t.classList.add('show'); clearTimeout(window._tt)
+  window._tt=setTimeout(()=>t.classList.remove('show'),3000)
+}
+
+// ══ Clock ══
+function tick(){const n=new Date(),e=document.getElementById('clock');if(e)e.textContent=String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0')}
+tick();setInterval(tick,10000)
+
+// ══ Init ══
+renderDash(); renderAds()
+
+// ── Welcome popup Admin ──
+function dismissWelcomeAdmin() {
+  const popup = document.getElementById('welcome-popup');
+  popup.classList.add('out');
+  setTimeout(() => { popup.style.display = 'none'; }, 300);
+}
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    const popup = document.getElementById('welcome-popup');
+    if (popup) popup.style.display = 'flex';
+  }, 500);
+});
+
+// Close overlays on backdrop click
+['create-overlay','reject-overlay','del-overlay','ad-overlay'].forEach(id=>{
+  document.getElementById(id).addEventListener('click',function(e){
+    if(e.target===this)this.classList.remove('show')
+  })
+})
+</script>
+</body>
+</html>
